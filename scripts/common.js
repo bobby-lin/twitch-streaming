@@ -8,11 +8,13 @@ $(document).ready(function() {
         $.getJSON(url_user, function (data) {
             description = data.status;
             if (data.logo !== null) {
-                html = "<li><img class='user-img' src='" + data.logo + "'><span class='online-header'>"
+                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                    "<img class='user-img' src='" + data.logo + "'><span class='online-header'>"
                     + data.name + "</span><br>" + description + "</br>" + "</li>";
             }
             else {
-                html = "<li><img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
+                html = "<a href='" + data.url + "' target='_blank'>" +
+                    "<li><img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
                     + "<span class='online-header'>" + data.name + "</span></li>";
             }
             $("#user-list").append(html);
@@ -23,14 +25,15 @@ $(document).ready(function() {
     
     function addOffline(url_user,user) {
         $.getJSON(url_user, function (data) {
-            var description = data.status;
             if (data.logo !== null) {
-                html = "<li><img class='user-img' src='" + data.logo + "'><span class='offline-header'>"
-                    + data.name + "</span>" + "</li>";
+                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                    "<img class='user-img' src='" + data.logo + "'><span class='offline-header'>"
+                    + data.name + "</span>" + "</li></a>";
             }
             else {
-                html = "<li><img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
-                    + "<span class='offline-header'>" + data.name + "</span></li>";
+                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                    "<img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>" 
+                    + "<span class='offline-header'>" + data.name + "</span></li></a>";
             }
             $("#user-list").append(html);
         }).fail(function (err) {
@@ -45,8 +48,8 @@ $(document).ready(function() {
         $("#user-list").append(html);
     }
     
-    var users = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb",
-        "thomasballinger", "noobs2ninjas", "MedryBW", "beohoff", "brunofin", "comster404"];
+    var users = ["freecodecamp", "storbeck", "terakilobyte", "MedryBW", "habathcx", "RobotCaleb",
+                    "thomasballinger", "noobs2ninjas", "beohoff", "brunofin", "comster404"];
     users.forEach(function (user) {
         var url = "https://api.twitch.tv/kraken/";
         var html = "";
