@@ -3,21 +3,33 @@
  *     Author: Bobby Lin
  */
 
+function filter(element) {
+    var value = $(element).val();
+    $('li').each(function() {
+        if ($(this).text().search(value) > -1) {
+            $(this).show();
+        }
+        else {
+            $(this).hide();
+        }
+    });
+}
+
 $(document).ready(function() {
     function addOnline(url_user,user) {
         $.getJSON(url_user, function (data) {
             description = data.status;
             if (data.logo !== null) {
-                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                html = "<li><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='" + data.logo + "'><span class='online-header'>"
                     + data.name + "</span><br>" + description + "</br>" + "</li>";
             }
             else {
-                html = "<a href='" + data.url + "' target='_blank'>" +
-                    "<li><img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
-                    + "<span class='online-header'>" + data.name + "</span></li>";
+                html = "<li><a href='" + data.url + "' target='_blank'>" +
+                    "<img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
+                    + "<a class='online-header'>" + data.name + "</span></a></li>";
             }
-            $("#user-list").append(html);
+            $('#user-list').append(html);
         }).fail(function (err) {
             addClosedAccount(user)
         });
@@ -26,14 +38,14 @@ $(document).ready(function() {
     function addOffline(url_user,user) {
         $.getJSON(url_user, function (data) {
             if (data.logo !== null) {
-                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                html = "<li><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='" + data.logo + "'><span class='offline-header'>"
-                    + data.name + "</span>" + "</li></a>";
+                    + data.name + "</span>" + "</a></li>";
             }
             else {
-                html = "<a href='" + data.url + "' target='_blank'><li>" +
+                html = "<li><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>" 
-                    + "<span class='offline-header'>" + data.name + "</span></li></a>";
+                    + "<span class='offline-header'>" + data.name + "</span></a></li>";
             }
             $("#user-list").append(html);
         }).fail(function (err) {
