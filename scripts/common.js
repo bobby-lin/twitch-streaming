@@ -15,19 +15,47 @@ function filter(element) {
     });
 }
 
+$('#filter-radio').click(function() {
+    var check = $('input[name=filter]:checked', '#filter-radio').val();
+    
+    function showAllUsers() {
+        $('li').each(function () {
+            $(this).show();
+        });
+    }
+    
+    function filterByType() {
+        $('li').each(function () {
+            if ($(this).hasClass(check)) {
+                $(this).show();
+            }
+            else {
+                $(this).hide();
+            }
+        });
+    }
+    
+    if(check === "all") {
+        showAllUsers();
+    } 
+    else {
+        filterByType();
+    }
+});
+
 $(document).ready(function() {
     function addOnline(url_user,user) {
         $.getJSON(url_user, function (data) {
-            description = data.status;
+            var description = data.status;
             if (data.logo !== null) {
-                html = "<li><a href='" + data.url + "' target='_blank'>" +
+                html = "<li class='on'><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='" + data.logo + "'><span class='online-header'>"
                     + data.name + "</span><br>" + description + "</br>" + "</li>";
             }
             else {
-                html = "<li><a href='" + data.url + "' target='_blank'>" +
+                html = "<li class='on'><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>"
-                    + "<a class='online-header'>" + data.name + "</span></a></li>";
+                    + "<span class='online-header'>" + data.name + "</span></span></li>";
             }
             $('#user-list').append(html);
         }).fail(function (err) {
@@ -38,12 +66,12 @@ $(document).ready(function() {
     function addOffline(url_user,user) {
         $.getJSON(url_user, function (data) {
             if (data.logo !== null) {
-                html = "<li><a href='" + data.url + "' target='_blank'>" +
+                html = "<li class='off'><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='" + data.logo + "'><span class='offline-header'>"
                     + data.name + "</span>" + "</a></li>";
             }
             else {
-                html = "<li><a href='" + data.url + "' target='_blank'>" +
+                html = "<li class='off'><a href='" + data.url + "' target='_blank'>" +
                     "<img class='user-img' src='http://placehold.it/50/95A5A6/white?text=No+logo'>" 
                     + "<span class='offline-header'>" + data.name + "</span></a></li>";
             }
@@ -55,7 +83,7 @@ $(document).ready(function() {
     
     function addClosedAccount(user) {
         var span_user = "<span class='closed-header'>" + user +" (Closed)</span>";
-        html = "<li><img class='user-img' src='http://placehold.it/50?text=No+logo'>"
+        html = "<li class='closed'><img class='user-img' src='http://placehold.it/50?text=No+logo'>"
             + span_user + "</li>";
         $("#user-list").append(html);
     }
