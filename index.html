@@ -21,10 +21,16 @@
         <input type="text" class="placeholder" onkeyup="filter(this)">
         <i class="glyphicon glyphicon-search search-icon"></i>
       </label>
-      <form class="row filter-list">
-        <label class="col-xs-4"><input type="radio" checked name="filter"> All</label>
-        <label class="col-xs-4"><input type="radio" name="filter"> <span style="color: green;">Online</span></label>
-        <label class="col-xs-4"><input type="radio" name="filter"> <span style="color: red;">Offline</span></label>
+      <form class="row filter-list" id="filter-radio">
+        <label class="col-xs-4">
+          <input type="radio" name="filter" value="all" checked> All
+        </label>
+        <label class="col-xs-4"><input type="radio" name="filter" value="on"> 
+          <span style="color: green;"> Online</span>
+        </label>
+        <label class="col-xs-4">
+          <input type="radio" name="filter" value="off"> <span style="color: red;"> Offline</span>
+        </label>
       </form>
     </div>
     <div class="panel panel-default users">
