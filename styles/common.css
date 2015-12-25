@@ -2,6 +2,18 @@ body {
     background-color: #ecf0f1;
 }
 
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 .header {
     background-color: #26C6DA;
     margin-bottom: 20px;
